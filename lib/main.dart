@@ -46,6 +46,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  int _currentNotesQuantity = 8;
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -54,6 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+    });
+  }
+
+  _incrementNotesQuantity() {
+
+    setState(() {
+
+      _currentNotesQuantity++;
     });
   }
 
@@ -74,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: NoteGrid(),
+        child: NoteGrid(_currentNotesQuantity),
           // Column is also layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -91,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _incrementNotesQuantity,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -99,33 +109,52 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class NoteGrid extends StatelessWidget {
+class NoteGrid extends StatefulWidget {
 
-   @override
+    int _notesQuantity;
+
+    NoteGrid(this._notesQuantity);
+
+    @override
+    _NoteGridState createState() => _NoteGridState();
+}
+
+class _NoteGridState extends State<NoteGrid> {
+
+  int _currentNotesQuantity;
+
+  @override
+  void initState() {
+
+    super.initState();
+    _currentNotesQuantity = widget._notesQuantity;
+  }
+
+
+
+  @override
   Widget build(BuildContext context) {
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(child: Note("prima nota")),
-        Expanded(child: Note("seconda nota"))
-      ],
-    );
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: List.generate(_currentNotesQuantity, (_) => Expanded(child: Note()));
+    );;
   }
+
 }
 
 class Note extends StatelessWidget {
-
-  int _colorIndex = 0;
-
-  Note(this._title);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      color: Colors.pink,
+      //color: Colors.pink,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        color: Colors.pinkAccent
+      ),
     );
   }
 }
