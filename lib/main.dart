@@ -44,26 +44,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
   int _currentNotesQuantity = 8;
 
-  void _incrementCounter() {
+  _updateNotesQuantity(int newNotesQuantity) {
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  _incrementNotesQuantity() {
-
-    setState(() {
-
-      _currentNotesQuantity++;
+      _currentNotesQuantity = newNotesQuantity;
     });
   }
 
@@ -79,12 +71,28 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          
+          children: [
+            Text("la la la!"),
+            Slider(
+                onChanged: (double newValue) {
+                  _updateNotesQuantity(newValue.toInt());
+                },
+                activeColor: Colors.white,
+                value: _currentNotesQuantity.toDouble(),
+                min: 8,
+                max: 16,
+                divisions: 16,
+              ),
+          ]
+        ),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: NoteGrid(_currentNotesQuantity),
+      body: 
+            NoteGrid(_currentNotesQuantity),
+
+
           // Column is also layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -99,38 +107,32 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementNotesQuantity,
+        onPressed: () {
+          print("onPressed!");
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      // bottomNavigationBar: Slider(
+      //       onChanged: (double newValue) {
+      //         _updateNotesQuantity(newValue.toInt());
+      //       },
+      //       value: _currentNotesQuantity.toDouble(),
+      //       max: 16,
+      //       min: 5,
+            
+      //       label: "How many notes",
+      //     ),
     );
   }
 }
 
-class NoteGrid extends StatefulWidget {
+class NoteGrid extends StatelessWidget {
 
-    int _notesQuantity;
+  final int _notesQuantity;
 
-    NoteGrid(this._notesQuantity);
-
-    @override
-    _NoteGridState createState() => _NoteGridState();
-}
-
-class _NoteGridState extends State<NoteGrid> {
-
-  int _currentNotesQuantity;
-
-  @override
-  void initState() {
-
-    super.initState();
-    _currentNotesQuantity = widget._notesQuantity;
-  }
-
-
+  NoteGrid(this._notesQuantity);
 
   @override
   Widget build(BuildContext context) {
@@ -138,22 +140,21 @@ class _NoteGridState extends State<NoteGrid> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: List.generate(_currentNotesQuantity, (_) => Expanded(child: Note()));
-    );;
+        children: List.generate(_notesQuantity, (_) => Expanded(child: Note())),
+    );
   }
-
 }
 
 class Note extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return Container(
       //color: Colors.pink,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        color: Colors.pinkAccent
+        border: Border.all(color: Colors.grey[400]),
+        color: Colors.white
       ),
     );
   }
