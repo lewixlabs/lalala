@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
+import 'package:soundpool/soundpool.dart';
 
 void main() => runApp(MyApp());
 
@@ -147,14 +150,40 @@ class NoteGrid extends StatelessWidget {
 
 class Note extends StatelessWidget {
 
+  Soundpool _pool;
+  int _soundId;
+
+  Note() {
+    _loadAudio();
+  }
+
+  _loadAudio() async {
+
+    _pool = Soundpool(streamType: StreamType.notification);
+
+    _soundId = await rootBundle.load("assets/a.wav").then((ByteData soundData) {
+                  return _pool.load(soundData);
+                });
+  }
+
+  _playAudio() {
+
+    _pool.play(_soundId);
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      //color: Colors.pink,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[400]),
-        color: Colors.white
+    return GestureDetector(
+        onTap: () {
+          _playAudio();
+        },
+        child: Container(
+        //color: Colors.pink,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[400]),
+          color: Colors.white
+        ),
       ),
     );
   }
