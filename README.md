@@ -1,4 +1,4 @@
-# La La La
+# _**La La La !!**_
 
 Simple piano game for my daughter :)
 
