@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
       ),
       home: MyHomePage(title: 'la la'),
     );
@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ]),
       ),
-      body: NotePage(8),
+      body: NotePage(7),
 
       // Column is also layout widget. It takes a list of children and
       // arranges them vertically. By default, it sizes itself to fit its
