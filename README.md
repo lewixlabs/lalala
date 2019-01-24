@@ -1,6 +1,16 @@
-# lalala
+# La La La
 
 Simple piano game for my daughter :)
+
+## Credits
+Piano sample files are hosted here on [SampleFocus web site](https://samplefocus.com/tag/piano-note)
+
+### Flutter components used:
+- InheritedWidget
+    - https://docs.flutter.io/flutter/widgets/InheritedWidget-class.html
+    - https://www.youtube.com/watch?v=Zbm3hjPjQMk&feature=youtu.be
+- AudioPlayers Plugin to make piano sound :)
+    - https://pub.dartlang.org/packages/audioplayers
 
 ## Getting Started
 
