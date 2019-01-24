@@ -1,6 +1,5 @@
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
-import 'package:soundpool/soundpool.dart';
+import 'package:lalala/note_core.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'la la la!'),
+      home: MyHomePage(title: 'la la'),
     );
   }
 }
@@ -46,11 +45,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _currentNotesQuantity = 8;
 
   _updateNotesQuantity(int newNotesQuantity) {
-
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -73,42 +70,36 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          
-          children: [
-            Text("la la la!"),
-            Slider(
-                onChanged: (double newValue) {
-                  _updateNotesQuantity(newValue.toInt());
-                },
-                activeColor: Colors.white,
-                value: _currentNotesQuantity.toDouble(),
-                min: 8,
-                max: 16,
-                divisions: 16,
-              ),
-          ]
-        ),
+        title: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text("la la la!!!!"),
+          Slider(
+            onChanged: (double newValue) {
+              _updateNotesQuantity(newValue.toInt());
+            },
+            activeColor: Colors.white,
+            value: _currentNotesQuantity.toDouble(),
+            min: 8,
+            max: 16,
+            divisions: 16,
+          ),
+        ]),
       ),
-      body: 
-            NoteGrid(_currentNotesQuantity),
+      body: NotePage(8),
 
-
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
+      // Column is also layout widget. It takes a list of children and
+      // arranges them vertically. By default, it sizes itself to fit its
+      // children horizontally, and tries to be as tall as its parent.
+      //
+      // Invoke "debug painting" (press "p" in the console, choose the
+      // "Toggle Debug Paint" action from the Flutter Inspector in Android
+      // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+      // to see the wireframe for each widget.
+      //
+      // Column has various properties to control how it sizes itself and
+      // how it positions its children. Here we use mainAxisAlignment to
+      // center the children vertically; the main axis here is the vertical
+      // axis because Columns are vertical (the cross axis would be
+      // horizontal).
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print("onPressed!");
@@ -123,68 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
       //       value: _currentNotesQuantity.toDouble(),
       //       max: 16,
       //       min: 5,
-            
+
       //       label: "How many notes",
       //     ),
-    );
-  }
-}
-
-class NoteGrid extends StatelessWidget {
-
-  final int _notesQuantity;
-
-  NoteGrid(this._notesQuantity);
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: List.generate(_notesQuantity, (_) => Expanded(child: Note())),
-    );
-  }
-}
-
-class Note extends StatelessWidget {
-
-  final Soundpool _pool = Soundpool(streamType: StreamType.notification);
-  int _soundId;
-
-  Note() {
-
-    _loadAudio();
-  }
-
-  _loadAudio() async {
-
-    var soundData = await rootBundle.load("assets/piano_c_major.wav");
-    _soundId = await _pool.load(soundData);
-    // _soundId = await rootBundle.load("assets/piano_c_major.wav").then((ByteData soundData) {
-    //           return _pool.load(soundData);
-    //         });
-  }
-
-  void _playAudio() {
-
-    _pool.play(_soundId);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return InkWell(
-      onTap: () {
-        _playAudio();
-      },
-      splashColor: Colors.pink,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[400]),
-          color: Colors.white
-        ),
-      ),
     );
   }
 }
