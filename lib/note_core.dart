@@ -101,7 +101,7 @@ class Note extends StatelessWidget {
     //final currentPlayer = NoteGrid.of(context).player;
 
     return InkWell(
-      onTap: () => InheritedNoteGrid.of(context).player.playNote(sound),
+      onTap: () => InheritedNoteGrid.of(context).player.playNote(this.sound),
       splashColor: Colors.pink,
       child: Container(
         decoration: BoxDecoration(
