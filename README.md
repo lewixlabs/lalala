@@ -9,8 +9,8 @@ Piano sample files are hosted here on [SampleFocus web site](https://samplefocus
 - InheritedWidget
     - https://docs.flutter.io/flutter/widgets/InheritedWidget-class.html
     - https://www.youtube.com/watch?v=Zbm3hjPjQMk&feature=youtu.be
-- AudioPlayers Plugin to make piano sound :)
-    - https://pub.dartlang.org/packages/audioplayers
+- SoundPool Plugin to make piano sound :)
+    - https://pub.dartlang.org/packages/soundpool
 
 ## Getting Started
 
